@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Digital Pulse: Agentic Shield</title>
+    <style>
+        :root { --primary: #2563eb; --bg: #f1f5f9; --text: #0f172a; --success: #16a34a; --error: #dc2626; }
+        body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); display: flex; justify-content: center; padding: 20px; line-height: 1.5; }
+        #app-container { background: white; width: 100%; max-width: 650px; padding: 40px; border-radius: 20px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); position: relative; }
+        
+        /* Title Screen Styles */
+        #title-screen { text-align: center; display: block; }
+        .hero-icon { font-size: 5rem; margin-bottom: 10px; }
+        .btn-start { background: var(--primary); color: white; border: none; padding: 15px 40px; border-radius: 30px; font-size: 1.2em; font-weight: bold; cursor: pointer; transition: transform 0.2s; margin-top: 20px; }
+        .btn-start:hover { transform: scale(1.05); background: #1d4ed8; }
+
+        /* Game Styles */
+        #game-interface { display: none; }
+        .progress-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-weight: bold; font-size: 0.9em; }
+        .progress-container { background: #e2e8f0; border-radius: 10px; height: 10px; margin-bottom: 30px; overflow: hidden; }
+        #progress-bar { background: var(--primary); height: 100%; width: 0%; transition: width 0.4s ease; }
+        .term-box { background: #f8fafc; padding: 15px; border-radius: 12px; border-left: 5px solid var(--primary); margin-bottom: 20px; }
+        .scenario-text { font-size: 1.1em; margin-bottom: 20px; background: #fffbeb; padding: 15px; border-radius: 10px; border: 1px dashed #f59e0b; }
+        .options { display: grid; gap: 12px; }
+        button.option { background: white; border: 2px solid #e2e8f0; padding: 16px; border-radius: 12px; cursor: pointer; text-align: left; font-size: 1em; font-weight: 500; }
+        button.option:hover { border-color: var(--primary); background: #f8fafc; }
+        .feedback { margin-top: 20px; font-weight: 700; display: none; padding: 15px; border-radius: 8px; text-align: center; }
+        
+        /* Footer/License */
+        footer { margin-top: 30px; font-size: 0.75rem; color: #64748b; border-top: 1px solid #e2e8f0; padding-top: 15px; text-align: center; }
+        .reset-btn { font-size: 0.7em; color: #94a3b8; cursor: pointer; background: none; border: none; text-decoration: underline; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+<div id="app-container">
+    <div id="title-screen">
+        <div class="hero-icon">🛡️</div>
+        <h1>The Digital Pulse</h1>
+        <p style="color: #64748b; margin-bottom: 20px;">Agentic Shield: Middle School Edition</p>
+        <div style="text-align: left; background: #f8fafc; padding: 20px; border-radius: 12px; font-size: 0.9em;">
+            <strong>Your Mission:</strong>
+            <ul style="padding-left: 20px;">
+                <li>Identify and block "Agentic AI" risks.</li>
+                <li>Protect your PII (Personal Identifiable Information).</li>
+                <li>Practice ethical AI use for your home projects.</li>
+            </ul>
+            <p><em>Progress is saved automatically to this computer!</em></p>
+        </div>
+        <button class="btn-start" onclick="startGame()">ENTER MISSION</button>
+    </div>
+
+    <div id="game-interface">
+        <div class="progress-header">
+            <span id="step-counter">Challenge 1 of 14</span>
+            <span id="percent-text">0%</span>
+        </div>
+        <div class="progress-container"><div id="progress-bar"></div></div>
+        <div id="quiz-area"></div>
+    </div>
+
+    <div id="final-screen" style="display:none; text-align: center;">
+        <div style="font-size: 4em;">🏆</div>
+        <h1>Master Shield Verified</h1>
+        <p>You’ve secured your data and protected your digital footprint.</p>
+        <button class="btn-start" onclick="resetGame()">RESTART TRAINING</button>
+    </div>
+
+    <footer>
+        <p>© 2026. This work is licensed under <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a>.</p>
+        <button class="reset-btn" onclick="resetGame()">Reset All Progress</button>
+    </footer>
+</div>
+
+<script>
+    const scenarios = [
+        { title: "The Agentic Boss", text: "An AI 'Agent' at home asks for a 'Global Token' to manage your game skins automatically.", term: "AGENTIC AI", question: "What is the danger of a 'Global Token'?", options: [{ text: "It lets the AI control your account without a password.", correct: true }, { text: "It's just a digital sticker.", correct: false }, { text: "It makes your internet faster.", correct: false }] },
+        { title: "The Quishing Trap", text: "You see a QR code on a locker: 'Scan for a free pizza coupon!'", term: "QUISHING", question: "What should you do?", options: [{ text: "Scan it to see if it's real.", correct: false }, { text: "Ignore it. Random QR codes are often data traps.", correct: true }, { text: "Scan it but don't download anything.", correct: false }] },
+        { title: "The Cookie App Trail", text: "A viral 'Mood App' wants access to your Camera, Contacts, and GPS to work.", term: "PII & DATA CRUMBS", question: "Why does it want your GPS?", options: [{ text: "To find your mood in the weather.", correct: false }, { text: "To build a shadow profile of where you live and play.", correct: true }, { text: "It doesn't—it's just a glitch.", correct: false }] },
+        { title: "Home vs. School Ethics", text: "You use an AI at home to write your entire English essay for you.", term: "ACADEMIC INTEGRITY", question: "Why is this a risk?", options: [{ text: "Your brain loses the ability to solve problems (Cognitive Atrophy).", correct: true }, { text: "The AI might use big words.", correct: false }, { text: "It's only risky if you use school Wi-Fi.", correct: false }] },
+        { title: "The Deepfake DM", text: "A video of your friend saying a secret is going around. It looks like them, but the voice is robotic.", term: "DEEPFAKE", question: "First move?", options: [{ text: "Share it with the whole grade.", correct: false }, { text: "Pause. Check if it's an AI fake meant to start drama.", correct: true }, { text: "Report your friend for saying it.", correct: false }] },
+        { title: "The Ghost Student", text: "A 'new student' with 1 follower DMs you for your phone number.", term: "SOCIAL ENGINEERING", question: "What is this?", options: [{ text: "A hacker trying to steal your PII.", correct: true }, { text: "A lonely classmate.", correct: false }, { text: "A prank from your best friend.", correct: false }] },
+        { title: "The Smart Home Mic", text: "You talk about shoes, and 10 minutes later your phone shows shoe ads.", term: "DATA SNOOPING", question: "How to stop this?", options: [{ text: "Revoke Microphone permissions for apps that don't need them.", correct: true }, { text: "Don't talk near your phone.", correct: false }, { text: "Turn off the Wi-Fi.", correct: false }] },
+        { title: "The Location Leak", text: "You post a selfie. In the background, your home address is visible on a package.", term: "GEOTAGGING / OVERSHARING", question: "What PII is leaked?", options: [{ text: "Your precise home address.", correct: true }, { text: "Just your room decor.", correct: false }, { text: "Your favorite brand of box.", correct: false }] },
+        { title: "The Password 'Agent'", text: "A 3rd-party AI extension offers to save ALL your school passwords.", term: "THIRD-PARTY RISK", question: "Big risk here?", options: [{ text: "If the AI company is hacked, the hacker gets everything.", correct: true }, { text: "The AI might forget them.", correct: false }, { text: "It will slow down your typing.", correct: false }] },
+        { title: "The 'Friend' in the Lobby", text: "An online gamer sends you a 'pro-file' to download and double your speed.", term: "MALWARE", question: "The danger?", options: [{ text: "It could be a 'Trojan' that spies on your webcam.", correct: true }, { text: "It will make the game too easy.", correct: false }, { text: "It might change your avatar's hair color.", correct: false }] },
+        { title: "The AI Influencer", text: "You find out your favorite 'perfect' influencer is actually 100% AI.", term: "TRANSPARENCY", question: "Why does it matter?", options: [{ text: "It hurts self-esteem to compare yourself to a fake robot.", correct: true }, { text: "It's illegal to be an AI influencer.", correct: false }, { text: "They can't actually buy the clothes they wear.", correct: false }] },
+        { title: "The Forgotten Subscription", text: "An AI tool you used once still has 'Handshake' access to your Discord.", term: "PERMISSION CREEP", question: "The fix?", options: [{ text: "Revoke access in settings immediately.", correct: true }, { text: "Change your Discord profile picture.", correct: false }, { text: "Nothing—it's harmless.", correct: false }] },
+        { title: "The Help Desk Scam", text: "A pop-up says your AI security is broken and to call a number.", term: "VISHING", question: "True or False?", options: [{ text: "FALSE: Real security alerts don't ask you to call random numbers.", correct: true }, { text: "TRUE: If it has a logo, it must be real.", correct: false }, { text: "MAYBE: I should call just to be safe.", correct: false }] },
+        { title: "The AI Image Post", text: "You post a fake AI photo of yourself in Hawaii.", term: "AUTHENTICITY", question: "The risk?", options: [{ text: "You lose your digital trust/reputation with friends.", correct: true }, { text: "You might get a sunburn in the photo.", correct: false }, { text: "People will be jealous of your robot self.", correct: false }] }
+    ];
+
+    let currentStep = parseInt(localStorage.getItem('dg_progress')) || 0;
+
+    function startGame() {
+        document.getElementById('title-screen').style.display = 'none';
+        document.getElementById('game-interface').style.display = 'block';
+        renderScenario();
+    }
+
+    function renderScenario() {
+        if (currentStep >= scenarios.length) {
+            document.getElementById('game-interface').style.display = 'none';
+            document.getElementById('final-screen').style.display = 'block';
+            return;
+        }
+
+        const data = scenarios[currentStep];
+        const progress = (currentStep / scenarios.length) * 100;
+        document.getElementById('progress-bar').style.width = progress + '%';
+        document.getElementById('percent-text').innerText = Math.round(progress) + '%';
+        document.getElementById('step-counter').innerText = `Challenge ${currentStep + 1} of ${scenarios.length}`;
+
+        let shuffledOptions = [...data.options].sort(() => Math.random() - 0.5);
+
+        let html = `
+            <div class="scenario-card">
+                <h2>${data.title}</h2>
+                <div class="term-box"><strong>Key Term:</strong> ${data.term}</div>
+                <div class="scenario-text">${data.text}</div>
+                <p><strong>Question:</strong> ${data.question}</p>
+                <div class="options">
+                    ${shuffledOptions.map(opt => `<button class="option" onclick="handleAnswer(${opt.correct}, this)">${opt.text}</button>`).join('')}
+                </div>
+                <div id="feedback" class="feedback"></div>
+            </div>
+        `;
+        document.getElementById('quiz-area').innerHTML = html;
+    }
+
+    function handleAnswer(isCorrect, btn) {
+        const feedback = document.getElementById('feedback');
+        feedback.style.display = 'block';
+        const allBtns = document.querySelectorAll('.option');
+        allBtns.forEach(b => b.style.pointerEvents = 'none');
+        
+        if (isCorrect) {
+            feedback.innerHTML = "✅ Correct Action Taken!";
+            feedback.style.color = "var(--success)";
+            btn.style.background = "#dcfce7";
+            setTimeout(() => {
+                currentStep++;
+                localStorage.setItem('dg_progress', currentStep);
+                renderScenario();
+            }, 1500);
+        } else {
+            feedback.innerHTML = "❌ Risk Detected. Try a safer path.";
+            feedback.style.color = "var(--error)";
+            btn.style.background = "#fee2e2";
+            setTimeout(() => {
+                feedback.style.display = 'none';
+                allBtns.forEach(b => b.style.pointerEvents = 'auto');
+            }, 1200);
+        }
+    }
+
+    function resetGame() {
+        localStorage.removeItem('dg_progress');
+        location.reload();
+    }
+</script>
+</body>
+</html>
