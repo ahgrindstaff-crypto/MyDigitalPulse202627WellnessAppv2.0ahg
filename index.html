@@ -8,14 +8,10 @@
         :root { --primary: #2563eb; --bg: #f1f5f9; --text: #0f172a; --success: #16a34a; --error: #dc2626; }
         body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); display: flex; justify-content: center; padding: 20px; line-height: 1.5; }
         #app-container { background: white; width: 100%; max-width: 650px; padding: 40px; border-radius: 20px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); position: relative; }
-        
-        /* Title Screen Styles */
         #title-screen { text-align: center; display: block; }
         .hero-icon { font-size: 5rem; margin-bottom: 10px; }
         .btn-start { background: var(--primary); color: white; border: none; padding: 15px 40px; border-radius: 30px; font-size: 1.2em; font-weight: bold; cursor: pointer; transition: transform 0.2s; margin-top: 20px; }
         .btn-start:hover { transform: scale(1.05); background: #1d4ed8; }
-
-        /* Game Styles */
         #game-interface { display: none; }
         .progress-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-weight: bold; font-size: 0.9em; }
         .progress-container { background: #e2e8f0; border-radius: 10px; height: 10px; margin-bottom: 30px; overflow: hidden; }
@@ -26,8 +22,6 @@
         button.option { background: white; border: 2px solid #e2e8f0; padding: 16px; border-radius: 12px; cursor: pointer; text-align: left; font-size: 1em; font-weight: 500; }
         button.option:hover { border-color: var(--primary); background: #f8fafc; }
         .feedback { margin-top: 20px; font-weight: 700; display: none; padding: 15px; border-radius: 8px; text-align: center; }
-        
-        /* Footer/License */
         footer { margin-top: 30px; font-size: 0.75rem; color: #64748b; border-top: 1px solid #e2e8f0; padding-top: 15px; text-align: center; }
         .reset-btn { font-size: 0.7em; color: #94a3b8; cursor: pointer; background: none; border: none; text-decoration: underline; margin-top: 10px; }
     </style>
@@ -38,22 +32,22 @@
     <div id="title-screen">
         <div class="hero-icon">🛡️</div>
         <h1>The Digital Pulse</h1>
-        <p style="color: #64748b; margin-bottom: 20px;">Agentic Shield: Middle School Edition</p>
+        <p style="color: #64748b; margin-bottom: 20px;">Agentic Shield & Cyber Hygiene Training</p>
         <div style="text-align: left; background: #f8fafc; padding: 20px; border-radius: 12px; font-size: 0.9em;">
-            <strong>Your Mission:</strong>
+            <strong>Mission Overview:</strong>
             <ul style="padding-left: 20px;">
-                <li>Identify and block "Agentic AI" risks.</li>
-                <li>Protect your PII (Personal Identifiable Information).</li>
-                <li>Practice ethical AI use for your home projects.</li>
+                <li>Master Digital Citizenship & Footprints.</li>
+                <li>Defeat Cyberbullying as an Upstander.</li>
+                <li>Identify Phishing, Vishing, and Quishing.</li>
+                <li>Secure your PII from Agentic AI bots.</li>
             </ul>
-            <p><em>Progress is saved automatically to this computer!</em></p>
         </div>
-        <button class="btn-start" onclick="startGame()">ENTER MISSION</button>
+        <button class="btn-start" onclick="startGame()">START MISSION</button>
     </div>
 
     <div id="game-interface">
         <div class="progress-header">
-            <span id="step-counter">Challenge 1 of 14</span>
+            <span id="step-counter">Challenge 1 of 23</span>
             <span id="percent-text">0%</span>
         </div>
         <div class="progress-container"><div id="progress-bar"></div></div>
@@ -62,36 +56,48 @@
 
     <div id="final-screen" style="display:none; text-align: center;">
         <div style="font-size: 4em;">🏆</div>
-        <h1>Master Shield Verified</h1>
-        <p>You’ve secured your data and protected your digital footprint.</p>
-        <button class="btn-start" onclick="resetGame()">RESTART TRAINING</button>
+        <h1>Cyber Hygiene Mastered</h1>
+        <p>You have verified your digital citizenship skills and protected your footprint.</p>
+        <button class="btn-start" onclick="resetGame()">RESTART SYSTEM</button>
     </div>
 
     <footer>
-        <p>© 2026. This work is licensed under <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a>.</p>
-        <button class="reset-btn" onclick="resetGame()">Reset All Progress</button>
+        <p>© 2026. Licensed under <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a>.</p>
+        <button class="reset-btn" onclick="resetGame()">Reset Local Progress</button>
     </footer>
 </div>
 
 <script>
     const scenarios = [
-        { title: "The Agentic Boss", text: "An AI 'Agent' at home asks for a 'Global Token' to manage your game skins automatically.", term: "AGENTIC AI", question: "What is the danger of a 'Global Token'?", options: [{ text: "It lets the AI control your account without a password.", correct: true }, { text: "It's just a digital sticker.", correct: false }, { text: "It makes your internet faster.", correct: false }] },
-        { title: "The Quishing Trap", text: "You see a QR code on a locker: 'Scan for a free pizza coupon!'", term: "QUISHING", question: "What should you do?", options: [{ text: "Scan it to see if it's real.", correct: false }, { text: "Ignore it. Random QR codes are often data traps.", correct: true }, { text: "Scan it but don't download anything.", correct: false }] },
-        { title: "The Cookie App Trail", text: "A viral 'Mood App' wants access to your Camera, Contacts, and GPS to work.", term: "PII & DATA CRUMBS", question: "Why does it want your GPS?", options: [{ text: "To find your mood in the weather.", correct: false }, { text: "To build a shadow profile of where you live and play.", correct: true }, { text: "It doesn't—it's just a glitch.", correct: false }] },
-        { title: "Home vs. School Ethics", text: "You use an AI at home to write your entire English essay for you.", term: "ACADEMIC INTEGRITY", question: "Why is this a risk?", options: [{ text: "Your brain loses the ability to solve problems (Cognitive Atrophy).", correct: true }, { text: "The AI might use big words.", correct: false }, { text: "It's only risky if you use school Wi-Fi.", correct: false }] },
-        { title: "The Deepfake DM", text: "A video of your friend saying a secret is going around. It looks like them, but the voice is robotic.", term: "DEEPFAKE", question: "First move?", options: [{ text: "Share it with the whole grade.", correct: false }, { text: "Pause. Check if it's an AI fake meant to start drama.", correct: true }, { text: "Report your friend for saying it.", correct: false }] },
-        { title: "The Ghost Student", text: "A 'new student' with 1 follower DMs you for your phone number.", term: "SOCIAL ENGINEERING", question: "What is this?", options: [{ text: "A hacker trying to steal your PII.", correct: true }, { text: "A lonely classmate.", correct: false }, { text: "A prank from your best friend.", correct: false }] },
-        { title: "The Smart Home Mic", text: "You talk about shoes, and 10 minutes later your phone shows shoe ads.", term: "DATA SNOOPING", question: "How to stop this?", options: [{ text: "Revoke Microphone permissions for apps that don't need them.", correct: true }, { text: "Don't talk near your phone.", correct: false }, { text: "Turn off the Wi-Fi.", correct: false }] },
-        { title: "The Location Leak", text: "You post a selfie. In the background, your home address is visible on a package.", term: "GEOTAGGING / OVERSHARING", question: "What PII is leaked?", options: [{ text: "Your precise home address.", correct: true }, { text: "Just your room decor.", correct: false }, { text: "Your favorite brand of box.", correct: false }] },
-        { title: "The Password 'Agent'", text: "A 3rd-party AI extension offers to save ALL your school passwords.", term: "THIRD-PARTY RISK", question: "Big risk here?", options: [{ text: "If the AI company is hacked, the hacker gets everything.", correct: true }, { text: "The AI might forget them.", correct: false }, { text: "It will slow down your typing.", correct: false }] },
-        { title: "The 'Friend' in the Lobby", text: "An online gamer sends you a 'pro-file' to download and double your speed.", term: "MALWARE", question: "The danger?", options: [{ text: "It could be a 'Trojan' that spies on your webcam.", correct: true }, { text: "It will make the game too easy.", correct: false }, { text: "It might change your avatar's hair color.", correct: false }] },
-        { title: "The AI Influencer", text: "You find out your favorite 'perfect' influencer is actually 100% AI.", term: "TRANSPARENCY", question: "Why does it matter?", options: [{ text: "It hurts self-esteem to compare yourself to a fake robot.", correct: true }, { text: "It's illegal to be an AI influencer.", correct: false }, { text: "They can't actually buy the clothes they wear.", correct: false }] },
-        { title: "The Forgotten Subscription", text: "An AI tool you used once still has 'Handshake' access to your Discord.", term: "PERMISSION CREEP", question: "The fix?", options: [{ text: "Revoke access in settings immediately.", correct: true }, { text: "Change your Discord profile picture.", correct: false }, { text: "Nothing—it's harmless.", correct: false }] },
-        { title: "The Help Desk Scam", text: "A pop-up says your AI security is broken and to call a number.", term: "VISHING", question: "True or False?", options: [{ text: "FALSE: Real security alerts don't ask you to call random numbers.", correct: true }, { text: "TRUE: If it has a logo, it must be real.", correct: false }, { text: "MAYBE: I should call just to be safe.", correct: false }] },
-        { title: "The AI Image Post", text: "You post a fake AI photo of yourself in Hawaii.", term: "AUTHENTICITY", question: "The risk?", options: [{ text: "You lose your digital trust/reputation with friends.", correct: true }, { text: "You might get a sunburn in the photo.", correct: false }, { text: "People will be jealous of your robot self.", correct: false }] }
+        /* ORIGINAL SCENARIOS */
+        { title: "The Agentic Boss", text: "An AI 'Agent' at home asks for a 'Global Token' to manage your gaming skins.", term: "AGENTIC AI", question: "What is the danger of a 'Global Token'?", options: [{ text: "It lets the AI control your account without a password.", correct: true }, { text: "It's just a digital sticker.", correct: false }, { text: "It makes your internet faster.", correct: false }] },
+        { title: "The Quishing Trap", text: "You see a QR code on a locker: 'Scan for a free pizza coupon!'", term: "QUISHING", question: "What should you do?", options: [{ text: "Ignore it. Random QR codes are often data traps.", correct: true }, { text: "Scan it to see if it's real.", correct: false }, { text: "Scan it but don't download anything.", correct: false }] },
+        { title: "The Cookie App Trail", text: "A viral 'Mood App' wants access to your Camera, Contacts, and GPS.", term: "PII & DATA CRUMBS", question: "Why does it want your GPS?", options: [{ text: "To build a shadow profile of where you live and play.", correct: true }, { text: "To check the weather.", correct: false }, { text: "It doesn't—it's just a glitch.", correct: false }] },
+        { title: "The Deepfake DM", text: "A video of your friend saying a secret is going around. Their voice sounds robotic.", term: "DEEPFAKE", question: "First move?", options: [{ text: "Pause. Check if it's an AI fake meant to start drama.", correct: true }, { text: "Share it with the whole grade.", correct: false }, { text: "Report your friend for saying it.", correct: false }] },
+        /* HYGIENE QUIZ ADDITIONS */
+        { title: "Your Trail Online", text: "You post a photo to a private group, but a friend screenshots it and shares it publicly.", term: "DIGITAL FOOTPRINT", question: "A person's digital footprint is officially:", options: [{ text: "Public and permanent to anyone.", correct: true }, { text: "Public, but not usually permanent.", correct: false }, { text: "Only public to people you share it with.", correct: false }] },
+        { title: "Who is Watching?", text: "You are applying for a summer job and a college scholarship.", term: "REPUTATION", question: "Which of the following people can access your digital footprint?", options: [{ text: "Teachers, Employers, Friends, and Family (All of them).", correct: true }, { text: "Only your family and friends.", correct: false }, { text: "Potential employers only.", correct: false }] },
+        { title: "The Cyberbullying Target", text: "Someone is sending you mean messages every day on your gaming console.", term: "CYBER HYGIENE", question: "What should you do if you are a victim?", options: [{ text: "Block them, keep a record/screenshot, and tell a trusted adult.", correct: true }, { text: "Respond to the bully to tell them to stop.", correct: false }, { text: "Delete the app and never tell anyone.", correct: false }] },
+        { title: "Be the Upstander", text: "You see a group chat making fun of a student's appearance.", term: "UPSTANDER", question: "How can you be an upstander in this witness situation?", options: [{ text: "All of the above: Reach out to the victim, tell an adult, and report the bullying.", correct: true }, { text: "Stay out of it so you don't become a target.", correct: false }, { text: "Tell the victim to 'ignore it'.", correct: false }] },
+        { title: "The Privacy Policy", text: "You click 'Agree' on a new app's privacy policy, then try to change your settings to 'Private'.", term: "LEGAL DATA USE", question: "Can a company still use your data in ways disclosed in the policy?", options: [{ text: "False. It depends if the policy allows you to opt in or out.", correct: true }, { text: "True. Changing settings does not affect the policy.", correct: false }, { text: "True. This is always the case.", correct: false }] },
+        { title: "The Ethical Hacker", text: "You meet someone who says they are a 'White Hat Hacker' who helps websites.", term: "WHITE HAT", question: "What is NOT true of white hat hackers?", options: [{ text: "They are breaking the law and are at risk of legal repercussions.", correct: true }, { text: "They use the same methods as black hat hackers.", correct: false }, { text: "They alert companies of security vulnerabilities.", correct: false }] },
+        { title: "Username Safety", text: "You are creating a new profile for a social media app at home.", term: "PII PROTECTION", question: "Which info is SAFE to include in an online username?", options: [{ text: "Your favorite sport.", correct: true }, { text: "Your school mascot.", correct: false }, { text: "Your year of birth.", correct: false }] },
+        { title: "Spotting Credible News", text: "You find a website about a new AI trend, but the info seems strange.", term: "CREDIBLE SOURCES", question: "Which of these is NOT a characteristic of a credible source?", options: [{ text: "The author is NOT named on the website.", correct: true }, { text: "The domain is .edu or .gov.", correct: false }, { text: "Multiple scholarly sources are cited.", correct: false }] },
+        { title: "Internet Media Use", text: "You found a cool song on the internet and want to use it for your social media video.", term: "COPYRIGHT", question: "True or False: As long as you cite your source, you can share ANY media you find.", options: [{ text: "False. (You often need specific permission or a license).", correct: true }, { text: "True.", correct: false }] },
+        /* REST OF ORIGINAL SCENARIOS */
+        { title: "Home vs. School Ethics", text: "Using AI at home to write your school essays.", term: "ACADEMIC INTEGRITY", question: "The risk?", options: [{ text: "Cognitive Atrophy: Your brain loses the ability to solve problems.", correct: true }, { text: "The AI might use big words.", correct: false }, { text: "It's only bad if school Wi-Fi is used.", correct: false }] },
+        { title: "The Ghost Student", text: "A 1-follower account using a friend's photo asks for your phone number.", term: "SOCIAL ENGINEERING", question: "What's the goal?", options: [{ text: "To steal your PII by pretending to be someone you trust.", correct: true }, { text: "They just lost their old account.", correct: false }] },
+        { title: "The Smart Home Mic", text: "Talking about shoes, then seeing shoe ads everywhere.", term: "DATA SNOOPING", question: "The fix?", options: [{ text: "Revoke Microphone permissions for apps that don't need them.", correct: true }, { text: "Talk quieter.", correct: false }] },
+        { title: "The Location Leak", text: "Your home address is visible on a package in your selfie.", term: "GEOTAGGING", question: "The leak?", options: [{ text: "Your precise home location.", correct: true }, { text: "Your room decor.", correct: false }] },
+        { title: "The Password 'Agent'", text: "A 3rd-party AI offers to save ALL your school passwords.", term: "THIRD-PARTY RISK", question: "Risk?", options: [{ text: "If the AI company is hacked, the hacker gets everything.", correct: true }, { text: "The AI might forget them.", correct: false }] },
+        { title: "The 'Friend' in the Lobby", text: "A gamer sends you a 'pro-file' to download.", term: "MALWARE", question: "Danger?", options: [{ text: "It could be a 'Trojan' that spies on your webcam.", correct: true }, { text: "The game gets too easy.", correct: false }] },
+        { title: "The AI Influencer", text: "Your favorite influencer is 100% AI.", term: "TRANSPARENCY", question: "Why care?", options: [{ text: "Comparing yourself to a fake robot hurts self-esteem.", correct: true }, { text: "It's illegal.", correct: false }] },
+        { title: "Forgotten Subscription", text: "An old AI tool still has access to your Discord.", term: "PERMISSION CREEP", question: "Fix?", options: [{ text: "Revoke access in settings immediately.", correct: true }, { text: "Change profile pic.", correct: false }] },
+        { title: "The Help Desk Scam", text: "A pop-up tells you to call 'AI-Security'.", term: "VISHING", question: "True or False?", options: [{ text: "FALSE: Real security alerts don't ask you to call random numbers.", correct: true }, { text: "TRUE: Logos mean it's real.", false: true }] },
+        { title: "The AI Image Post", text: "Posting a fake AI photo of yourself in Hawaii.", term: "AUTHENTICITY", question: "Risk?", options: [{ text: "You lose your digital trust/reputation with friends.", correct: true }, { text: "People get jealous of your robot.", correct: false }] }
     ];
 
-    let currentStep = parseInt(localStorage.getItem('dg_progress')) || 0;
+    let currentStep = parseInt(localStorage.getItem('pulse_progress')) || 0;
 
     function startGame() {
         document.getElementById('title-screen').style.display = 'none';
@@ -136,16 +142,16 @@
         allBtns.forEach(b => b.style.pointerEvents = 'none');
         
         if (isCorrect) {
-            feedback.innerHTML = "✅ Correct Action Taken!";
+            feedback.innerHTML = "✅ Correct! Moving to next challenge.";
             feedback.style.color = "var(--success)";
             btn.style.background = "#dcfce7";
             setTimeout(() => {
                 currentStep++;
-                localStorage.setItem('dg_progress', currentStep);
+                localStorage.setItem('pulse_progress', currentStep);
                 renderScenario();
             }, 1500);
         } else {
-            feedback.innerHTML = "❌ Risk Detected. Try a safer path.";
+            feedback.innerHTML = "❌ Think again. Protecting your data requires another choice.";
             feedback.style.color = "var(--error)";
             btn.style.background = "#fee2e2";
             setTimeout(() => {
@@ -156,7 +162,7 @@
     }
 
     function resetGame() {
-        localStorage.removeItem('dg_progress');
+        localStorage.removeItem('pulse_progress');
         location.reload();
     }
 </script>
